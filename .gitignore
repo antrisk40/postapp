@@ -1,0 +1,111 @@
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+*.swp
+*.swo
+*.orig
+*.tmp
+*.temp
+*.bak
+*.backup
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.code-workspace
+
+# ---- Node / Monorepo ----
+node_modules/
+**/node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarnrc.yml
+.nvm/
+
+# Lockfiles (keep these tracked if present)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ---- Build outputs ----
+dist/
+build/
+coverage/
+.nyc_output/
+lib/
+.tmp/
+.temp/
+.cache/
+.eslintcache
+.turbo/
+
+# ---- Next.js (frontend) ----
+.next/
+.next-static/
+.vercel/
+out/
+
+# ---- Logs & diagnostics ----
+logs/
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Env / Secrets ----
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# ---- Prisma ----
+# Keep migrations tracked; ignore local SQLite databases
+**/prisma/dev.db
+**/prisma/dev.db-journal
+**/prisma/*.db
+**/prisma/*.db-journal
+
+# ---- Docker ----
+.docker/
+**/.docker/
+# Local bind-mount data directories (if you create them)
+/data/
+**/data/
+
+# ---- Misc tools ----
+coverage-final.json
+cypress/videos/
+cypress/screenshots/
+playwright-report/
+blob-report/
+allure-results/
+
+# ---- OS-specific again (Windows) ----
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---- Temporary archives ----
+*.tgz
+*.gz
+*.zip
+*.7z
+*.rar
+
+# ---- Images caches ----
+**/.next/cache/images/
+
+# ---- Storybook (if used) ----
+storybook-static/
