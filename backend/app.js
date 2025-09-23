@@ -1,37 +1,26 @@
-// backend/app.ts
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import compression from 'compression';
-import morgan from 'morgan';
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
-// Import middleware
-import { corsConfig } from './src/middleware/cors';
-import { rateLimitMiddleware } from './src/middleware/rateLimit';
-import { errorHandler } from './src/middleware/errorHandler';
+const { corsConfig, rateLimitMiddleware, errorHandler } = require('./src/middleware');
 
-// Import API versions
-import v1Routes from './src/api/v1';
-// import v2Routes from './src/api/v2'; // Future version
+const v1Routes = require('./src/api/v1');
 
 const app = express();
 
-// Security middleware
 app.use(helmet());
 app.use(compression());
 app.use(morgan('combined'));
 
-// CORS configuration
 app.use(cors(corsConfig));
 
-// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Rate limiting
 app.use(rateLimitMiddleware);
 
-// Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'OK',
@@ -41,11 +30,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API versioning
 app.use('/api/v1', v1Routes);
-// app.use('/api/v2', v2Routes); // Future version
 
-// 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
@@ -54,7 +40,6 @@ app.use('*', (req, res) => {
   });
 });
 
-// Global error handler
 app.use(errorHandler);
 
-export default app;
+module.exports = app;

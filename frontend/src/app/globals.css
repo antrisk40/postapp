@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b1220; /* deep navy */
+  --foreground: #e6e8ee; /* soft light */
+  --muted: #9aa3b2;
+  --surface: #121a2b; /* card surface */
+  --border: #22304b;
+  --primary: #5b8cff; /* blue */
+  --primary-foreground: #0b1220;
+  --accent: #6ee7b7; /* green accent */
+  --danger: #f87171;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --foreground: #e6e8ee;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
+
+/* Cards and surfaces */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+/* Inputs */
+input, textarea, select {
+  background-color: #0f1629;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  outline: none;
+}
+input::placeholder, textarea::placeholder {
+  color: #7f8aa3;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.25);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-weight: 600;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: #0b1220;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-outline {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+}
+.btn-outline:hover { border-color: var(--primary); }
+
+/* Links */
+a { color: var(--primary); }
+a:hover { text-decoration: underline; }
