@@ -1,8 +1,8 @@
 "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthContext } from '../../context/AuthContext';
-import { ROUTES } from '../../lib/constants';
+import { useAuthContext } from '@/context/AuthContext';
+import { ROUTES } from '@/lib/constants';
 import { z } from 'zod';
 
 const schema = z.object({

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, use as usePromise } from "react";
 import { useRouter } from "next/navigation";
-import api from "@/lib/api";
+import api from "@/lib/api.js";
 import PostForm from "@/components/forms/PostForm";
 
 export default function EditPostPage({ params }) {
