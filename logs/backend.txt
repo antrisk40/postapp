@@ -1,0 +1,54 @@
+2025-09-24T11:32:15.662388954Z ==> Downloading cache...
+2025-09-24T11:32:15.665164804Z ==> Cloning from https://github.com/antrisk40/postapp
+2025-09-24T11:32:16.198868244Z ==> Checking out commit dc5fe06410d2c4c713c77d80494a074663d6ee77 in branch main
+2025-09-24T11:32:31.55148972Z ==> Transferred 126MB in 8s. Extraction took 5s.
+2025-09-24T11:32:43.077614915Z ==> Using Node.js version 22.16.0 (default)
+2025-09-24T11:32:43.128741631Z ==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+2025-09-24T11:32:43.257838954Z ==> Running build command 'npm ci'...
+2025-09-24T11:32:51.61824702Z 
+2025-09-24T11:32:51.618288232Z added 446 packages, and audited 447 packages in 8s
+2025-09-24T11:32:51.618294072Z 
+2025-09-24T11:32:51.618298952Z 52 packages are looking for funding
+2025-09-24T11:32:51.618303482Z   run `npm fund` for details
+2025-09-24T11:32:51.618307102Z 
+2025-09-24T11:32:51.618311552Z found 0 vulnerabilities
+2025-09-24T11:32:57.543146704Z ==> Uploading build...
+2025-09-24T11:33:04.905967809Z ==> Uploaded in 5.1s. Compression took 2.3s
+2025-09-24T11:33:04.941859458Z ==> Build successful 🎉
+2025-09-24T11:33:12.11804144Z ==> Deploying...
+2025-09-24T11:33:26.770020117Z ==> Running 'npm run dev'
+2025-09-24T11:33:27.862711434Z 
+2025-09-24T11:33:27.862741136Z > post-app-backend@1.0.0 dev
+2025-09-24T11:33:27.862745557Z > nodemon server.js
+2025-09-24T11:33:27.862747587Z 
+2025-09-24T11:33:28.862203983Z [nodemon] 3.1.10
+2025-09-24T11:33:28.863803543Z [nodemon] to restart at any time, enter `rs`
+2025-09-24T11:33:28.863995687Z [nodemon] watching path(s): *.*
+2025-09-24T11:33:28.864039451Z [nodemon] watching extensions: js,mjs,cjs,json
+2025-09-24T11:33:28.864466133Z [nodemon] starting `node server.js`
+2025-09-24T11:33:34.124912235Z 2025-09-24T11:33:34.122Z info: 🚀 Server running on port 5000
+2025-09-24T11:33:34.125490628Z 2025-09-24T11:33:34.125Z info: 📖 API Documentation: http://localhost:5000/api/v1/docs
+2025-09-24T11:33:34.125615478Z 2025-09-24T11:33:34.125Z info: 🔍 Health Check: http://localhost:5000/health
+2025-09-24T11:33:34.474989741Z ::1 - - [24/Sep/2025:11:33:34 +0000] "HEAD / HTTP/1.1" 404 72 "-" "Go-http-client/1.1"
+2025-09-24T11:33:42.838856046Z ==> Your service is live 🎉
+2025-09-24T11:33:42.866686596Z ==> 
+2025-09-24T11:33:42.894731115Z ==> ///////////////////////////////////////////////////////////
+2025-09-24T11:33:42.925670735Z ==> 
+2025-09-24T11:33:42.950363715Z ==> Available at your primary URL https://backendpostapplication.onrender.com
+2025-09-24T11:33:42.976297804Z ==> 
+2025-09-24T11:33:43.000387854Z ==> ///////////////////////////////////////////////////////////
+2025-09-24T11:33:43.903139022Z ::1 - - [24/Sep/2025:11:33:43 +0000] "GET / HTTP/1.1" 404 71 "-" "Go-http-client/2.0"
+2025-09-24T11:33:55.833968437Z ::1 - - [24/Sep/2025:11:33:55 +0000] "OPTIONS /api/v1/upload HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:33:56.237100208Z ::1 - - [24/Sep/2025:11:33:56 +0000] "POST /api/v1/upload HTTP/1.1" 400 44 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:14.823269465Z ::1 - - [24/Sep/2025:11:34:14 +0000] "OPTIONS /api/v1/upload HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:15.176138813Z ::1 - - [24/Sep/2025:11:34:15 +0000] "POST /api/v1/upload HTTP/1.1" 400 44 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:19.517145917Z ::1 - - [24/Sep/2025:11:34:19 +0000] "OPTIONS /api/v1/auth/me HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:21.054817474Z ::1 - - [24/Sep/2025:11:34:21 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:23.245849824Z ::1 - - [24/Sep/2025:11:34:23 +0000] "OPTIONS /api/v1/posts?limit=10&page=1 HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+2025-09-24T11:34:23.710887275Z ::1 - - [24/Sep/2025:11:34:23 +0000] "OPTIONS /api/v1/auth/me HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+2025-09-24T11:34:24.2273858Z ::1 - - [24/Sep/2025:11:34:24 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 299 "https://postapplication.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+2025-09-24T11:34:25.249160048Z ::1 - - [24/Sep/2025:11:34:25 +0000] "OPTIONS /api/v1/auth/me HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:25.643623959Z ::1 - - [24/Sep/2025:11:34:25 +0000] "OPTIONS /api/v1/posts HTTP/1.1" 204 0 "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:25.79505351Z ::1 - - [24/Sep/2025:11:34:25 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"
+2025-09-24T11:34:26.482229352Z ::1 - - [24/Sep/2025:11:34:26 +0000] "GET /api/v1/posts?limit=10&page=1 HTTP/1.1" 200 - "https://postapplication.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+2025-09-24T11:34:27.236403275Z ::1 - - [24/Sep/2025:11:34:27 +0000] "GET /api/v1/posts HTTP/1.1" 304 - "https://postapplication.onrender.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36"

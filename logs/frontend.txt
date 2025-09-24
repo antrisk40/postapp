@@ -1,0 +1,97 @@
+2025-09-24T17:47:39.228990859Z ==> Downloading cache...
+2025-09-24T17:47:39.231201389Z ==> Cloning from https://github.com/antrisk40/postapp
+2025-09-24T17:47:39.794235156Z ==> Checking out commit 8a9a011d1ebdd6dd279f89532a0762ea39b97092 in branch main
+2025-09-24T17:48:06.385203447Z ==> Transferred 389MB in 9s. Extraction took 15s.
+2025-09-24T17:48:13.809201533Z ==> Requesting Node.js version 22
+2025-09-24T17:48:14.139259378Z ==> Using Node.js version 22.20.0 via environment variable NODE_VERSION
+2025-09-24T17:48:14.185706052Z ==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+2025-09-24T17:48:16.844402592Z ==> Running build command 'node -e "console.log('CWD=', process.cwd())" && ls -la && npm ci && npm run build'...
+2025-09-24T17:48:16.884406989Z CWD= /opt/render/project/src/frontend
+2025-09-24T17:48:16.892677469Z total 268
+2025-09-24T17:48:16.89269595Z drwxr-sr-x   6 render render   4096 Sep 24 17:47 .
+2025-09-24T17:48:16.89270023Z drwxr-sr-x   6 render render   4096 Sep 24 17:47 ..
+2025-09-24T17:48:16.89270398Z drwxr-sr-x   3 render render   4096 Sep 24 17:47 .next
+2025-09-24T17:48:16.89270818Z -rw-r--r--   1 render render   1458 Sep 24 17:47 README.md
+2025-09-24T17:48:16.89271262Z -rw-r--r--   1 render render    505 Sep 24 17:47 eslint.config.mjs
+2025-09-24T17:48:16.89271639Z -rw-r--r--   1 render render     93 Sep 24 17:47 jsconfig.json
+2025-09-24T17:48:16.89272018Z -rw-r--r--   1 render render    308 Sep 24 17:47 next.config.mjs
+2025-09-24T17:48:16.89272416Z drwxr-sr-x 290 render render  12288 Sep 24 11:32 node_modules
+2025-09-24T17:48:16.89272801Z -rw-r--r--   1 render render 213947 Sep 24 17:47 package-lock.json
+2025-09-24T17:48:16.8927322Z -rw-r--r--   1 render render    538 Sep 24 17:47 package.json
+2025-09-24T17:48:16.89273589Z -rw-r--r--   1 render render     81 Sep 24 17:47 postcss.config.mjs
+2025-09-24T17:48:16.892740201Z drwxr-sr-x   2 render render   4096 Sep 24 17:47 public
+2025-09-24T17:48:16.892744101Z drwxr-sr-x   7 render render   4096 Sep 24 17:47 src
+2025-09-24T17:48:30.827025242Z 
+2025-09-24T17:48:30.827070203Z added 344 packages, and audited 345 packages in 14s
+2025-09-24T17:48:30.827407319Z 
+2025-09-24T17:48:30.827413169Z 143 packages are looking for funding
+2025-09-24T17:48:30.827417129Z   run `npm fund` for details
+2025-09-24T17:48:30.828287875Z 
+2025-09-24T17:48:30.828303196Z found 0 vulnerabilities
+2025-09-24T17:48:31.33615842Z 
+2025-09-24T17:48:31.336184151Z > frontend@0.1.0 build
+2025-09-24T17:48:31.336189551Z > next build
+2025-09-24T17:48:31.336193711Z 
+2025-09-24T17:48:32.705864458Z    ▲ Next.js 15.5.3
+2025-09-24T17:48:32.706398388Z 
+2025-09-24T17:48:32.749239876Z    Creating an optimized production build ...
+2025-09-24T17:48:37.953676625Z  ✓ Compiled successfully in 5.0s
+2025-09-24T17:48:37.973263151Z    Linting and checking validity of types ...
+2025-09-24T17:48:40.499860931Z 
+2025-09-24T17:48:40.499880482Z ./src/hooks/usePosts.js
+2025-09-24T17:48:40.499884822Z 8:9  Warning: The 'params' logical expression could make the dependencies of useMemo Hook (at line 9) change on every render. To fix this, wrap the initialization of 'params' in its own useMemo() Hook.  react-hooks/exhaustive-deps
+2025-09-24T17:48:40.499897922Z 56:7  Warning: React Hook useMemo has a missing dependency: 'updatePost'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+2025-09-24T17:48:40.499899852Z 
+2025-09-24T17:48:40.499902152Z info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+2025-09-24T17:48:40.500382091Z    Collecting page data ...
+2025-09-24T17:48:44.859953714Z    Generating static pages (0/12) ...
+2025-09-24T17:48:46.093606741Z    Generating static pages (3/12) 
+2025-09-24T17:48:46.093649251Z    Generating static pages (6/12) 
+2025-09-24T17:48:46.093753503Z    Generating static pages (9/12) 
+2025-09-24T17:48:46.093769694Z  ✓ Generating static pages (12/12)
+2025-09-24T17:48:46.917617547Z    Finalizing page optimization ...
+2025-09-24T17:48:46.917638637Z    Collecting build traces ...
+2025-09-24T17:48:54.134378974Z 
+2025-09-24T17:48:54.137291057Z Route (app)                                 Size  First Load JS
+2025-09-24T17:48:54.137302717Z ┌ ○ /                                     3.9 kB         139 kB
+2025-09-24T17:48:54.137306547Z ├ ○ /_not-found                            994 B         103 kB
+2025-09-24T17:48:54.137310047Z ├ ○ /dashboard                           2.89 kB         138 kB
+2025-09-24T17:48:54.137313418Z ├ ○ /login                               2.93 kB         138 kB
+2025-09-24T17:48:54.137317127Z ├ ○ /posts                               2.29 kB         137 kB
+2025-09-24T17:48:54.137320538Z ├ ƒ /posts/[id]                          2.75 kB         129 kB
+2025-09-24T17:48:54.137324318Z ├ ƒ /posts/[id]/edit                       784 B         127 kB
+2025-09-24T17:48:54.137327858Z ├ ○ /posts/create                        1.02 kB         136 kB
+2025-09-24T17:48:54.137331258Z ├ ○ /profile                             3.04 kB         138 kB
+2025-09-24T17:48:54.137334618Z ├ ○ /profile/edit                        2.72 kB         134 kB
+2025-09-24T17:48:54.137337968Z └ ○ /register                             3.4 kB         142 kB
+2025-09-24T17:48:54.137341828Z + First Load JS shared by all             102 kB
+2025-09-24T17:48:54.137345338Z   ├ chunks/255-40634877ae3e8e9d.js       45.7 kB
+2025-09-24T17:48:54.137348688Z   ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+2025-09-24T17:48:54.137352088Z   └ other shared chunks (total)          1.92 kB
+2025-09-24T17:48:54.137355358Z 
+2025-09-24T17:48:54.137358628Z 
+2025-09-24T17:48:54.137427849Z ○  (Static)   prerendered as static content
+2025-09-24T17:48:54.13744133Z ƒ  (Dynamic)  server-rendered on demand
+2025-09-24T17:48:54.13744606Z 
+2025-09-24T17:49:31.53535229Z ==> Uploading build...
+2025-09-24T17:49:49.681671326Z ==> Uploaded in 9.1s. Compression took 9.0s
+2025-09-24T17:49:49.75731014Z ==> Build successful 🎉
+2025-09-24T17:49:57.429277068Z ==> Deploying...
+2025-09-24T17:50:22.029754738Z ==> Running 'npm run start'
+2025-09-24T17:50:23.831855497Z 
+2025-09-24T17:50:23.831887089Z > frontend@0.1.0 start
+2025-09-24T17:50:23.831891059Z > next start
+2025-09-24T17:50:23.83190835Z 
+2025-09-24T17:50:26.130364545Z    ▲ Next.js 15.5.3
+2025-09-24T17:50:26.130609569Z    - Local:        http://localhost:10000
+2025-09-24T17:50:26.13062449Z    - Network:      http://10.229.142.101:10000
+2025-09-24T17:50:26.130742937Z 
+2025-09-24T17:50:26.13079536Z  ✓ Starting...
+2025-09-24T17:50:28.029015304Z  ✓ Ready in 3.4s
+2025-09-24T17:50:28.346016703Z ==> Your service is live 🎉
+2025-09-24T17:50:28.860052119Z ==> 
+2025-09-24T17:50:28.885523737Z ==> ///////////////////////////////////////////////////////////
+2025-09-24T17:50:28.909225536Z ==> 
+2025-09-24T17:50:28.932995654Z ==> Available at your primary URL https://postapplication.onrender.com
+2025-09-24T17:50:28.957581263Z ==> 
+2025-09-24T17:50:28.982672671Z ==> ///////////////////////////////////////////////////////////
