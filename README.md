@@ -1,5 +1,9 @@
 # Post Application ✨📝
+## Live Demo
 
+The site is live here: [postapplication.onrender.com/login](https://postapplication.onrender.com/login)
+
+Note: If the page doesn't open immediately, please wait ~2 minutes and try again (cold start on free hosting).
 A modern full‑stack posts platform with authentication, image uploads, and a sleek dark UI. Built with Next.js (App Router), Node.js, and Prisma. 🚀
 
 ---
@@ -144,10 +148,10 @@ All responses follow a consistent JSON structure with success flag and data/erro
 ---
 
 ## 🖼️ Screenshots (Optional)
-Add screenshots to `frontend/public/` and reference them here:
+Dashboard :-
 
 ```md
-![Dashboard](./frontend/public/window.svg)
+![Dashboard](./frontend/public/screenshot1.png)
 ```
 
 ---
@@ -160,13 +164,8 @@ Add screenshots to `frontend/public/` and reference them here:
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License. 📌
-
 ---
 
 ## 🙌 Acknowledgements
 - Tailwind CSS, Next.js, Prisma, Express
 - Cloudinary for simple media uploads
-
-Happy building! 💙

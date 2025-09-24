@@ -1,10 +1,4 @@
-# Post Application (Frontend)
-
-## Live Demo
-
-The site is live here: [postapplication.onrender.com/login](https://postapplication.onrender.com/login)
-
-Note: If the page doesn't open immediately, please wait ~2 minutes and try again (cold start on free hosting).
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 

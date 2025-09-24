@@ -1,0 +1,198 @@
+{
+    "info": {
+      "name": "PostApp API v1 - Complete",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": "Comprehensive Postman collection for Post Application API v1 with clear names and sample bodies."
+    },
+    "variable": [
+      { "key": "base_url", "value": "http://localhost:5000/api/v1" },
+      { "key": "token", "value": "" }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ]
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Auth - Register",
+            "request": {
+              "method": "POST",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth","register"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"john@example.com\",\n  \"username\": \"johnny\",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Auth - Login",
+            "request": {
+              "method": "POST",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth","login"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"emailOrUsername\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Auth - Me",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": { "raw": "{{base_url}}/auth/me", "host": ["{{base_url}}"], "path": ["auth","me"] }
+            }
+          },
+          {
+            "name": "Auth - Logout",
+            "request": {
+              "method": "POST",
+              "header": [],
+              "url": { "raw": "{{base_url}}/auth/logout", "host": ["{{base_url}}"], "path": ["auth","logout"] }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "Users - Get My Profile",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": { "raw": "{{base_url}}/users/profile", "host": ["{{base_url}}"], "path": ["users","profile"] }
+            }
+          },
+          {
+            "name": "Users - Update My Profile",
+            "request": {
+              "method": "PUT",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/users/profile", "host": ["{{base_url}}"], "path": ["users","profile"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"John Doe\",\n  \"bio\": \"I like writing posts.\",\n  \"avatar\": \"https://.../avatar.jpg\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Users - Get By Id",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": { "raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users",":id"] }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Posts",
+        "item": [
+          {
+            "name": "Posts - List",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/posts?search=&author=&page=1&limit=10",
+                "host": ["{{base_url}}"],
+                "path": ["posts"],
+                "query": [
+                  { "key": "search", "value": "" },
+                  { "key": "author", "value": "" },
+                  { "key": "page", "value": "1" },
+                  { "key": "limit", "value": "10" }
+                ]
+              }
+            }
+          },
+          {
+            "name": "Posts - Search",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": { "raw": "{{base_url}}/posts/search?q=hello", "host": ["{{base_url}}"], "path": ["posts","search"], "query": [ { "key": "q", "value": "hello" } ] }
+            }
+          },
+          {
+            "name": "Posts - Get By Id",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": { "raw": "{{base_url}}/posts/:id", "host": ["{{base_url}}"], "path": ["posts",":id"] }
+            }
+          },
+          {
+            "name": "Posts - Create",
+            "request": {
+              "method": "POST",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/posts", "host": ["{{base_url}}"], "path": ["posts"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"My First Post\",\n  \"content\": \"This is the content...\",\n  \"category\": \"General\",\n  \"tags\": [\"intro\", \"first\"],\n  \"images\": [\"https://.../image.jpg\"]\n}"
+              }
+            }
+          },
+          {
+            "name": "Posts - Update",
+            "request": {
+              "method": "PUT",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/posts/:id", "host": ["{{base_url}}"], "path": ["posts",":id"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"Updated Title\",\n  \"content\": \"Updated content...\",\n  \"category\": \"Updates\",\n  \"tags\": [\"updated\"]\n}"
+              }
+            }
+          },
+          {
+            "name": "Posts - Delete",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": { "raw": "{{base_url}}/posts/:id", "host": ["{{base_url}}"], "path": ["posts",":id"] }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Upload",
+        "item": [
+          {
+            "name": "Upload - Image (multipart/form-data)",
+            "request": {
+              "method": "POST",
+              "header": [],
+              "url": { "raw": "{{base_url}}/upload", "host": ["{{base_url}}"], "path": ["upload"] },
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  { "key": "image", "type": "file", "src": "", "description": "Choose an image file" }
+                ]
+              }
+            }
+          },
+          {
+            "name": "Upload - Delete Image",
+            "request": {
+              "method": "DELETE",
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "url": { "raw": "{{base_url}}/upload", "host": ["{{base_url}}"], "path": ["upload"] },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"publicId\": \"cloudinary_public_id\"\n}"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
