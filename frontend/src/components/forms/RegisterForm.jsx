@@ -5,6 +5,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { ROUTES } from "@/libs/constants.js";
 import api from "@/libs/api.js";
 import { z } from "zod";
+import { Button, Card, CardBody, CardHeader, Input } from "@/components/ui";
 
 const schema = z.object({
   email: z.string().email({ message: "Enter a valid email" }),
@@ -68,35 +69,28 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 text-gray-900">
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Email</label>
-        <input className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={email} onChange={(e) => setEmail(e.target.value)} />
-        {fieldErrors.email && <p className="text-red-600 text-xs mt-1">{fieldErrors.email}</p>}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Username</label>
-        <input className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={username} onChange={(e) => setUsername(e.target.value)} />
-        {fieldErrors.username && <p className="text-red-600 text-xs mt-1">{fieldErrors.username}</p>}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Name</label>
-        <input className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={name} onChange={(e) => setName(e.target.value)} />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Password</label>
-        <input type="password" className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {fieldErrors.password && <p className="text-red-600 text-xs mt-1">{fieldErrors.password}</p>}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Avatar</label>
-        <input type="file" accept="image/*" className="mt-1 w-full" onChange={(e) => setAvatar(e.target.files?.[0] || null)} />
-      </div>
-      {error && <p className="text-red-600 text-sm">{error}</p>}
-      <button type="submit" disabled={loading || uploading} className="btn btn-primary w-full">
-        {loading ? "Creating..." : (uploading ? "Uploading avatar..." : "Create account")}
-      </button>
-    </form>
+    <Card className="max-w-md mx-auto">
+      <CardHeader>
+        <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Create your account</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Join Post Application</p>
+      </CardHeader>
+      <CardBody>
+        <form onSubmit={onSubmit} className="space-y-4 text-gray-900">
+          <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} error={fieldErrors.email} placeholder="you@example.com" />
+          <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} error={fieldErrors.username} placeholder="cooluser" />
+          <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name (optional)" />
+          <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={fieldErrors.password} placeholder="••••••••" />
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Avatar</label>
+            <input type="file" accept="image/*" className="mt-1 w-full" onChange={(e) => setAvatar(e.target.files?.[0] || null)} />
+          </div>
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+          <Button type="submit" disabled={loading || uploading} className="w-full">
+            {loading ? "Creating..." : (uploading ? "Uploading avatar..." : "Create account")}
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 }
 

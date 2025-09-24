@@ -1,41 +1,35 @@
 "use client";
-import { useEffect, useState } from "react";
-import api from "@/libs/api";
 import Link from "next/link";
 import PostCard from "@/components/PostCard";
+import Loading from "@/app/loading";
+import { useProfile } from "@/hooks/useProfile";
+import usePosts from "@/hooks/usePosts";
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { profile, loading, error } = useProfile();
+  const initial = (profile?.name || profile?.username)?.[0]?.toUpperCase();
 
-  useEffect(() => {
-    async function run() {
-      try {
-        setLoading(true);
-        const res = await api.users.getProfile();
-        setProfile(res.data?.data || null);
-      } catch (err) {
-        setError(err?.response?.data?.error || 'Failed to load profile');
-      } finally {
-        setLoading(false);
-      }
-    }
-    run();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p className="text-danger">{error}</p>;
   if (!profile) return <p className="text-muted">Not found</p>;
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="card p-6 flex items-center gap-4">
-        {profile.avatar && (
-          <img src={profile.avatar} alt={profile.username} className="w-16 h-16 object-cover rounded-full border border-[var(--border)]" />
-        )}
+        <div className="relative group">
+          <div className="w-16 h-16 p-[2px] rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg transition-transform duration-300 group-hover:scale-105">
+            <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 overflow-hidden grid place-items-center">
+              {profile.avatar ? (
+                <img src={profile.avatar} alt={profile.username} className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-lg font-semibold text-slate-700 dark:text-slate-200">{initial}</span>
+              )}
+            </div>
+          </div>
+          <span className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-slate-900"></span>
+        </div>
         <div>
-          <h1 className="text-2xl font-semibold">Your Profile</h1>
+          <h1 className="text-2xl font-semibold">{profile.name || profile.username}</h1>
           <p className="text-sm text-muted">@{profile.username}</p>
         </div>
         <div className="ml-auto">
@@ -58,25 +52,7 @@ export default function ProfilePage() {
 }
 
 function UserPosts() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function run() {
-      try {
-        setLoading(true);
-        const res = await api.posts.getAll({ author: 'me' });
-        const data = res.data?.data || [];
-        setPosts(data);
-      } catch (err) {
-        setError(err?.response?.data?.error || 'Failed to load');
-      } finally {
-        setLoading(false);
-      }
-    }
-    run();
-  }, []);
+  const { posts, loading, error } = usePosts({ author: 'me' });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-600 text-sm">{error}</p>;

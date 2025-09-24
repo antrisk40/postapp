@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/context/AuthContext';
 import { ROUTES } from '@/libs/constants.js';
 import { z } from 'zod';
+import { Button, Card, CardBody, CardHeader, Input } from '@/components/ui';
 
 const schema = z.object({
   emailOrUsername: z.string().min(3, { message: 'Enter email or username' }),
@@ -44,22 +45,35 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 text-gray-900">
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Email or Username</label>
-        <input className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={emailOrUsername} onChange={(e) => setEmailOrUsername(e.target.value)} />
-        {fieldErrors.emailOrUsername && <p className="text-red-600 text-xs mt-1">{fieldErrors.emailOrUsername}</p>}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-900">Password</label>
-        <input type="password" className="mt-1 w-full border rounded p-2 text-gray-900 placeholder-gray-500" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {fieldErrors.password && <p className="text-red-600 text-xs mt-1">{fieldErrors.password}</p>}
-      </div>
-      {error && <p className="text-red-600 text-sm">{error}</p>}
-      <button type="submit" disabled={loading} className="btn btn-primary w-full">
-        {loading ? 'Signing in...' : 'Sign In'}
-      </button>
-    </form>
+    <Card className="max-w-md mx-auto">
+      <CardHeader>
+        <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Welcome back</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Sign in to continue</p>
+      </CardHeader>
+      <CardBody>
+        <form onSubmit={onSubmit} className="space-y-4 text-gray-900">
+          <Input
+            label="Email or Username"
+            value={emailOrUsername}
+            onChange={(e) => setEmailOrUsername(e.target.value)}
+            error={fieldErrors.emailOrUsername}
+            placeholder="you@example.com or username"
+          />
+          <Input
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={fieldErrors.password}
+            placeholder="••••••••"
+          />
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+          <Button type="submit" disabled={loading} className="w-full">
+            {loading ? 'Signing in...' : 'Sign In'}
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 }
 

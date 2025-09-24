@@ -1,61 +1,59 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../libs/api';
 import { handleApiError } from '../libs/utils';
 
 export function usePosts(initialParams) {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [pagination, setPagination] = useState(null);
-  const [params, setParams] = useState(initialParams || {});
+  const queryClient = useQueryClient();
+  const params = initialParams || {};
+  const queryKey = useMemo(() => ['posts', params], [params]);
 
-  const fetchPosts = useCallback(async (override) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await api.posts.getAll({ ...(params || {}), ...(override || {}) });
-      const data = res.data;
-      if (data?.success) {
-        setPosts(data.data || []);
-        setPagination(data.pagination || null);
-      } else {
-        setError(data?.error || 'Failed to fetch posts');
-      }
-    } catch (err) {
-      setError(handleApiError(err));
-    } finally {
-      setLoading(false);
-    }
-  }, [params]);
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey,
+    queryFn: async () => {
+      const res = await api.posts.getAll(params);
+      const payload = res.data;
+      if (!payload?.success) throw new Error(payload?.error || 'Failed to fetch posts');
+      return payload;
+    },
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  });
 
-  const createPost = useCallback(async (payload) => {
-    const res = await api.posts.create(payload);
-    const data = res.data;
-    if (data?.success && data?.data) {
-      setPosts((prev) => [data.data, ...prev]);
-      return data.data;
-    }
-    throw new Error(data?.error || 'Failed to create post');
-  }, []);
+  const createPost = useMutation({
+    mutationFn: (payload) => api.posts.create(payload).then((r) => r.data),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['posts'] }); },
+    onError: (err) => { throw new Error(handleApiError(err)); },
+  });
 
-  const updatePost = useCallback(async (id, updates) => {
-    const res = await api.posts.update(id, updates);
-    const data = res.data;
-    if (data?.success && data?.data) {
-      setPosts((prev) => prev.map((p) => (p.id === id ? data.data : p)));
-      return data.data;
-    }
-    throw new Error(data?.error || 'Failed to update post');
-  }, []);
+  const updatePost = useMutation({
+    mutationFn: ({ id, updates }) => api.posts.update(id, updates).then((r) => r.data),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['posts'] }); },
+    onError: (err) => { throw new Error(handleApiError(err)); },
+  });
 
-  const deletePost = useCallback(async (id) => {
-    await api.posts.delete(id);
-    setPosts((prev) => prev.filter((p) => p.id !== id));
-  }, []);
+  const deletePost = useMutation({
+    mutationFn: (id) => api.posts.delete(id).then((r) => r.data),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['posts'] }); },
+    onError: (err) => { throw new Error(handleApiError(err)); },
+  });
 
-  useEffect(() => { fetchPosts(); }, [fetchPosts]);
+  const posts = data?.data || [];
+  const pagination = data?.pagination || null;
 
-  return useMemo(() => ({ posts, loading, error, pagination, refetch: fetchPosts, setParams, createPost, updatePost, deletePost }), [posts, loading, error, pagination, fetchPosts, createPost, updatePost, deletePost]);
+  return useMemo(() => ({
+    posts,
+    loading: isLoading,
+    error: isError ? (error?.message || 'Failed to fetch posts') : null,
+    pagination,
+    refetch,
+    setParams: () => {},
+    createPost: createPost.mutateAsync,
+    updatePost: ({ id, updates }) => updatePost.mutateAsync({ id, updates }),
+    deletePost: deletePost.mutateAsync,
+  }), [posts, isLoading, isError, error, pagination, refetch, createPost.mutateAsync, updatePost.mutateAsync, deletePost.mutateAsync]);
 }
 
 export default usePosts;

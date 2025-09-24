@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import api from '@/libs/api.js';
+import { Button, Card, CardBody, CardHeader, CardFooter, Input } from '@/components/ui';
 
 export default function PostForm({ onSubmit, initialValues }) {
   const [title, setTitle] = useState(initialValues?.title || '');
@@ -58,45 +59,56 @@ export default function PostForm({ onSubmit, initialValues }) {
   };
 
   return (
-    <form onSubmit={submit} className="space-y-5 text-foreground">
-      <div>
-        <label className="block text-sm font-medium text-foreground/90">Title</label>
-        <input className="mt-1 w-full rounded-md p-2.5 bg-[#0f1629] border border-[var(--border)] text-foreground placeholder-[#7f8aa3]" value={title} onChange={(e) => setTitle(e.target.value)} />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-foreground/90">Content</label>
-        <textarea className="mt-1 w-full rounded-md p-2.5 bg-[#0f1629] border border-[var(--border)] text-foreground placeholder-[#7f8aa3]" rows={6} value={content} onChange={(e) => setContent(e.target.value)} />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-foreground/90">Category</label>
-          <input className="mt-1 w-full rounded-md p-2.5 bg-[#0f1629] border border-[var(--border)] text-foreground placeholder-[#7f8aa3]" value={category} onChange={(e) => setCategory(e.target.value)} />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground/90">Tags (comma separated)</label>
-          <input className="mt-1 w-full rounded-md p-2.5 bg-[#0f1629] border border-[var(--border)] text-foreground placeholder-[#7f8aa3]" value={tags} onChange={(e) => setTags(e.target.value)} />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-foreground/90">Images</label>
-        <input type="file" accept="image/*" multiple className="mt-1 w-full file:mr-4 file:rounded file:border-0 file:bg-[var(--primary)] file:text-[var(--primary-foreground)] file:px-3 file:py-1.5" onChange={handleFilesSelected} />
-        {(uploading) && <p className="text-sm text-muted mt-1">Uploading...</p>}
-        {!!images.length && (
-          <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {images.map((url) => (
-              <div key={url} className="relative group">
-                <img src={url} alt="uploaded" className="w-full h-28 object-cover rounded-md border border-[var(--border)]" />
-                <button type="button" className="absolute top-1 right-1 bg-red-500/90 text-white text-xs px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition" onClick={() => removeImage(url)}>Remove</button>
-              </div>
-            ))}
+    <Card>
+      <CardHeader>
+        <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Post details</h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Share your thoughts</p>
+      </CardHeader>
+      <CardBody>
+        <form onSubmit={submit} className="space-y-5 text-foreground">
+          <Input label="Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Give it a catchy title" />
+          <Input as="textarea" rows={6} label="Content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Write your content here" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input label="Category" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="E.g. Tech" />
+            <Input label="Tags" value={tags} onChange={(e) => setTags(e.target.value)} hint="Comma separated" placeholder="react,nextjs,webdev" />
           </div>
-        )}
-      </div>
-      {error && <p className="text-danger text-sm">{error}</p>}
-      <button type="submit" disabled={loading || uploading} className="btn btn-primary w-full mt-2 disabled:opacity-60">
-        {loading ? 'Saving...' : (uploading ? 'Please wait for uploads...' : 'Save')}
-      </button>
-    </form>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Images</label>
+            <label htmlFor="images-input" className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-white/70 dark:bg-slate-800/60 hover:bg-slate-50/80 dark:hover:bg-slate-800/80 transition p-6 text-center">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white grid place-items-center shadow-md">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4-4a2 2 0 012 0l4 4m0 0l2-2a2 2 0 012 0l2 2M12 8v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div className="text-sm">
+                  <span className="font-medium text-slate-800 dark:text-slate-100">Click to upload</span>
+                  <span className="text-slate-500 dark:text-slate-400"> or drag and drop</span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">PNG, JPG up to ~5MB</p>
+              </div>
+              <input id="images-input" type="file" accept="image/*" multiple className="sr-only" onChange={handleFilesSelected} />
+            </label>
+            {(uploading) && <p className="text-sm text-slate-500 mt-2">Uploading...</p>}
+            {!!images.length && (
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {images.map((url) => (
+                  <div key={url} className="relative group rounded-xl overflow-hidden border border-slate-200/60 dark:border-slate-700/50 shadow-sm">
+                    <img src={url} alt="uploaded" className="w-full h-28 object-cover" />
+                    <button type="button" className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition" onClick={() => removeImage(url)}>Remove</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+          <Button type="submit" disabled={loading || uploading} className="w-full mt-2">
+            {loading ? 'Saving...' : (uploading ? 'Please wait for uploads...' : 'Save')}
+          </Button>
+        </form>
+      </CardBody>
+      <CardFooter className="text-xs text-slate-500 dark:text-slate-400">
+        Tip: Use meaningful tags to help others find your post.
+      </CardFooter>
+    </Card>
   );
 }
 

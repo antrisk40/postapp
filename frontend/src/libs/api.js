@@ -1,65 +1,65 @@
+import axios from 'axios';
 import { getToken } from './auth.js';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api/v1';
 
-async function request(path, { method = 'GET', body, headers = {} } = {}) {
+const client = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+client.interceptors.request.use((config) => {
   const token = getToken();
-  const finalHeaders = {
-    ...(body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...headers,
-  };
-
-  const res = await fetch(`${API_BASE_URL}${path}`, {
-    method,
-    headers: finalHeaders,
-    body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
-    credentials: 'include',
-  });
-
-  let data;
-  try {
-    data = await res.json();
-  } catch (_) {
-    data = null;
+  if (token) {
+    config.headers = config.headers || {};
+    config.headers.Authorization = `Bearer ${token}`;
   }
+  return config;
+});
 
-  if (!res.ok) {
-    const message = data?.error || data?.message || 'Request failed';
-    const error = new Error(message);
-    error.status = res.status;
-    error.data = data;
-    throw error;
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error?.response?.status;
+    const data = error?.response?.data;
+    const message = data?.error || data?.message || error.message || 'Request failed';
+    const wrapped = new Error(message);
+    wrapped.status = status;
+    wrapped.data = data;
+    return Promise.reject(wrapped);
   }
+);
 
-  return { data };
-}
+const unwrap = (promise) => promise.then((res) => ({ data: res.data ?? null }));
 
 const auth = {
-  me: () => request('/auth/me'),
-  login: (payload) => request('/auth/login', { method: 'POST', body: payload }),
-  register: (payload) => request('/auth/register', { method: 'POST', body: payload }),
-  logout: () => request('/auth/logout', { method: 'POST' }),
+  me: () => unwrap(client.get('/auth/me')),
+  login: (payload) => unwrap(client.post('/auth/login', payload)),
+  register: (payload) => unwrap(client.post('/auth/register', payload)),
+  logout: () => unwrap(client.post('/auth/logout')),
 };
 
 const posts = {
-  getAll: (query = {}) => request(`/posts?${new URLSearchParams(query).toString()}`),
-  getById: (id) => request(`/posts/${id}`),
-  create: (payload) => request('/posts', { method: 'POST', body: payload }),
-  update: (id, payload) => request(`/posts/${id}`, { method: 'PUT', body: payload }),
-  delete: (id) => request(`/posts/${id}`, { method: 'DELETE' }),
+  getAll: (query = {}) => unwrap(client.get(`/posts`, { params: query })),
+  getById: (id) => unwrap(client.get(`/posts/${id}`)),
+  create: (payload) => unwrap(client.post('/posts', payload)),
+  update: (id, payload) => unwrap(client.put(`/posts/${id}`, payload)),
+  delete: (id) => unwrap(client.delete(`/posts/${id}`)),
 };
 
 const users = {
-  getProfile: () => request('/users/me'),
-  updateProfile: (payload) => request('/users/me', { method: 'PUT', body: payload }),
+  getProfile: () => unwrap(client.get('/users/profile')),
+  updateProfile: (payload) => unwrap(client.put('/users/profile', payload)),
 };
 
 const upload = {
   image: (file) => {
     const form = new FormData();
     form.append('file', file);
-    return request('/upload', { method: 'POST', body: form });
+    return unwrap(client.post('/upload', form, { headers: {} }));
   },
 };
 

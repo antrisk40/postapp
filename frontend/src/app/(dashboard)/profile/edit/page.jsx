@@ -1,31 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
-import api from "@/libs/api.js";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
+import { useProfile } from "@/hooks/useProfile";
+import api from "@/libs/api.js";
 
 export default function EditProfilePage() {
   const router = useRouter();
+  const { profile, loading, update } = useProfile();
   const [form, setForm] = useState({ name: "", bio: "", avatar: "" });
   const [avatarFile, setAvatarFile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function run() {
-      try {
-        setLoading(true);
-        const res = await api.users.getProfile();
-        const p = res.data?.data || {};
-        setForm({ name: p.name || "", bio: p.bio || "", avatar: p.avatar || "" });
-      } catch (err) {
-        setError(err?.response?.data?.error || 'Failed to load');
-      } finally {
-        setLoading(false);
-      }
-    }
-    run();
-  }, []);
+  if (!loading && profile && form.name === "" && form.bio === "" && form.avatar === "") {
+    setForm({ name: profile.name || "", bio: profile.bio || "", avatar: profile.avatar || "" });
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -38,16 +28,16 @@ export default function EditProfilePage() {
         const data = res.data;
         if (data?.success && data?.data?.url) avatarUrl = data.data.url;
       }
-      await api.users.updateProfile({ name: form.name, bio: form.bio, avatar: avatarUrl });
+      await update({ name: form.name, bio: form.bio, avatar: avatarUrl });
       router.push("/profile");
     } catch (err) {
-      setError(err?.response?.data?.error || 'Failed to save');
+      setError(err?.message || 'Failed to save');
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   return (
     <div className="max-w-2xl mx-auto">
       <div className="card p-6 shadow-lg">
@@ -63,10 +53,29 @@ export default function EditProfilePage() {
           </div>
           <div className="space-y-3">
             <label className="block text-sm font-medium text-foreground/90">Avatar</label>
-            {form.avatar && (
-              <img src={form.avatar} alt="avatar" className="w-20 h-20 object-cover rounded-full border border-[var(--border)]" />
-            )}
-            <input type="file" accept="image/*" className="file:mr-4 file:rounded file:border-0 file:bg-[var(--primary)] file:text-[var(--primary-foreground)] file:px-3 file:py-1.5" onChange={(e) => setAvatarFile(e.target.files?.[0] || null)} />
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-16 h-16 p-[2px] rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-md">
+                  <div className="w-full h-full rounded-full bg-white/10 overflow-hidden grid place-items-center">
+                    {form.avatar ? (
+                      <img src={form.avatar} alt="avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-sm text-foreground/80">N/A</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="avatar-input" className="block cursor-pointer rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-transparent hover:bg-white/5 transition p-4 text-center">
+                  <div className="text-sm">
+                    <span className="font-medium text-foreground">Click to upload</span>
+                    <span className="text-foreground/70"> or drag and drop</span>
+                  </div>
+                  <p className="text-xs text-foreground/60">PNG, JPG up to ~5MB</p>
+                  <input id="avatar-input" type="file" accept="image/*" className="sr-only" onChange={(e) => setAvatarFile(e.target.files?.[0] || null)} />
+                </label>
+              </div>
+            </div>
           </div>
           {error && <p className="text-danger text-sm">{error}</p>}
           <button disabled={saving} className="btn btn-primary w-full disabled:opacity-60">{saving ? 'Saving...' : 'Save'}</button>
