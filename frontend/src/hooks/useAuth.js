@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import api from '../lib/api';
-import { getToken, setToken, removeToken } from '../lib/auth';
+import api from '../libs/api';
+import { getToken, setToken, removeToken } from '../libs/auth';
 
 export function useAuth() {
   const [user, setUser] = useState(null);

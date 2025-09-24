@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import api from '../lib/api';
-import { handleApiError } from '../lib/utils';
+import api from '../libs/api';
+import { handleApiError } from '../libs/utils';
 
 export function usePosts(initialParams) {
   const [posts, setPosts] = useState([]);

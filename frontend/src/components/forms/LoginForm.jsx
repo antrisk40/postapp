@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/context/AuthContext';
-import { ROUTES } from '@/lib/constants';
+import { ROUTES } from '@/libs/constants.js';
 import { z } from 'zod';
 
 const schema = z.object({

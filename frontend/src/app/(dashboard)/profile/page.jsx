@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
+import api from "@/libs/api";
 import Link from "next/link";
 import PostCard from "@/components/PostCard";
 

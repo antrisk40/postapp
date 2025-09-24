@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
-import { ROUTES } from "@/lib/constants";
-import api from "@/lib/api";
+import { ROUTES } from "@/libs/constants.js";
+import api from "@/libs/api.js";
 import { z } from "zod";
 
 const schema = z.object({

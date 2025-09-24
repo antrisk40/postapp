@@ -2,10 +2,11 @@ import path from "path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    esmExternals: true, // fixes ESM module resolution issues
+  },
   webpack: (config) => {
-    const srcPath = path.resolve("./src");
-    console.log("Alias @ points to:", srcPath);  // 🔹 logs resolved path during build
-    config.resolve.alias["@"] = srcPath;
+    config.resolve.alias["@"] = path.resolve("./src");
     return config;
   },
 };
