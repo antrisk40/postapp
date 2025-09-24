@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import api from "@/libs/api";
 import { useAuthContext } from "@/context/AuthContext";
 import Link from "next/link";
+import Loading from "@/app/loading";
 
 export default function PostViewPage({ params }) {
   const { id } = usePromise(params);
@@ -43,7 +44,7 @@ export default function PostViewPage({ params }) {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!post) return <p>Not found</p>;
 
@@ -101,7 +102,7 @@ export default function PostViewPage({ params }) {
         <Link href="/" className="btn btn-outline">Back</Link>
         {isAuthor && (
           <div className="flex items-center gap-2">
-            <Link href={`/(dashboard)/posts/${post.id}/edit`} className="btn btn-outline">Edit</Link>
+            <Link href={`/posts/${post.id}/edit`} className="btn btn-outline">Edit</Link>
             <button onClick={onDelete} disabled={deleting} className="btn btn-primary">{deleting ? 'Deleting...' : 'Delete'}</button>
           </div>
         )}
