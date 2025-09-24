@@ -13,7 +13,7 @@ export default function PostsPage() {
       <ul className="space-y-2">
         {posts.map((p) => (
           <li key={p.id}>
-            <PostCard post={p} hrefBase="/(dashboard)/posts" />
+            <PostCard post={p} hrefBase="/posts" />
           </li>
         ))}
       </ul>

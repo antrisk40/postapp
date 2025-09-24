@@ -9,8 +9,8 @@ const router = Router();
 const uploadController = new UploadController();
 const upload = multer({ dest: path.join(os.tmpdir(), 'uploads') });
 
-router.post('/image', authMiddleware, upload.single('image'), uploadController.uploadImage);
-router.delete('/delete', authMiddleware, uploadController.deleteImage);
+router.post('/', authMiddleware, upload.single('image'), uploadController.uploadImage);
+router.delete('/', authMiddleware, uploadController.deleteImage);
 
 module.exports = router;
 

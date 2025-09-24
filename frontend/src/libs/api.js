@@ -58,9 +58,15 @@ const users = {
 const upload = {
   image: (file) => {
     const form = new FormData();
-    form.append('file', file);
-    return unwrap(client.post('/upload', form, { headers: {} }));
+    // backend expects field name 'image'
+    form.append('image', file);
+    return unwrap(
+      client.post('/upload', form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+    );
   },
+  delete: (publicId) => unwrap(client.delete('/upload', { data: { publicId } })),
 };
 
 const api = { auth, posts, users, upload };
