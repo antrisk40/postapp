@@ -19,7 +19,7 @@ app.use(cors(corsConfig));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(rateLimitMiddleware);
+// app.use(rateLimitMiddleware);
 
 app.get('/health', (req, res) => {
   res.json({
