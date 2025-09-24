@@ -81,8 +81,15 @@ export default function RegisterForm() {
           <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name (optional)" />
           <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={fieldErrors.password} placeholder="••••••••" />
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Avatar</label>
-            <input type="file" accept="image/*" className="mt-1 w-full" onChange={(e) => setAvatar(e.target.files?.[0] || null)} />
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Avatar</label>
+            <label htmlFor="reg-avatar-input" className="block cursor-pointer rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-transparent hover:bg-white/5 transition p-4 text-center">
+              <div className="text-sm">
+                <span className="font-medium text-foreground">Click to upload</span>
+                <span className="text-foreground/70"> or drag and drop</span>
+              </div>
+              <p className="text-xs text-foreground/60">PNG, JPG up to ~5MB</p>
+              <input id="reg-avatar-input" type="file" accept="image/*" className="sr-only" onChange={(e) => setAvatar(e.target.files?.[0] || null)} />
+            </label>
           </div>
           {error && <p className="text-red-600 text-sm">{error}</p>}
           <Button type="submit" disabled={loading || uploading} className="w-full">

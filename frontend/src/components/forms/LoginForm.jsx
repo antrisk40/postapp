@@ -7,14 +7,14 @@ import { z } from 'zod';
 import { Button, Card, CardBody, CardHeader, Input } from '@/components/ui';
 
 const schema = z.object({
-  emailOrUsername: z.string().min(3, { message: 'Enter email or username' }),
+  email: z.string().email({ message: 'Enter a valid email' }),
   password: z.string().min(6, { message: 'Password must be at least 6 chars' })
 });
 
 export default function LoginForm() {
   const router = useRouter();
   const { login } = useAuthContext();
-  const [emailOrUsername, setEmailOrUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ export default function LoginForm() {
       setLoading(true);
       setError(null);
       setFieldErrors({});
-      const parsed = schema.safeParse({ emailOrUsername, password });
+      const parsed = schema.safeParse({ email, password });
       if (!parsed.success) {
         const errs = {};
         for (const issue of parsed.error.issues) {
@@ -35,7 +35,8 @@ export default function LoginForm() {
         setFieldErrors(errs);
         throw new Error('Validation failed');
       }
-      await login({ emailOrUsername, password });
+      // For API compatibility, send email as emailOrUsername
+      await login({ emailOrUsername: email, password });
       router.push(ROUTES.DASHBOARD);
     } catch (err) {
       setError(err?.response?.data?.error || 'Login failed');
@@ -53,11 +54,11 @@ export default function LoginForm() {
       <CardBody>
         <form onSubmit={onSubmit} className="space-y-4 text-gray-900">
           <Input
-            label="Email or Username"
-            value={emailOrUsername}
-            onChange={(e) => setEmailOrUsername(e.target.value)}
-            error={fieldErrors.emailOrUsername}
-            placeholder="you@example.com or username"
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={fieldErrors.email}
+            placeholder="you@example.com"
           />
           <Input
             label="Password"
